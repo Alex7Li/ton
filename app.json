@@ -1,0 +1,26 @@
+{
+  "name": "tone",
+  "displayName": "Ton",
+  "expo": {
+    "name": "tōn",
+    "icon": "./images/icon.png",
+    "ios": {
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "audio"
+        ]
+      }
+    },
+    "description": "Having a simple task to focus on while meditating can help increase the quality of meditation. This app provides the task of pressing a button every few seconds while you try to meditate in the hopes that it will improve meditation quality.",
+    "slug": "ton",
+    "privacy": "unlisted",
+    "sdkVersion": "36.0.0",
+    "version": "1.0.0",
+    "entryPoint": "node_modules/expo/AppEntry.js",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ]
+  }
+}

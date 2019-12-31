@@ -2,48 +2,42 @@ import pic from '../images/plainbackground.jpg'
 import leaf from '../images/leaf.png'
 
 import React, {Component} from 'react';
-import { Text, View, Image, ImageBackground, Button} from 'react-native';
+import {AsyncStorage, Text, View, Image, ImageBackground, Button, TouchableHighlight} from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
-
-const style = {
-  backgroundImage: {
-    width: '100%',
-    height: '100%'
-  },
-  leaf: {
-    width: 40,
-    height: 40,
-    marginLeft: "auto",
-    marginRight: "auto",
-  }
-}
+import {style} from './Styles.tsx';
 
 export default class WelcomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.setTime();
+  }
   static navigationOptions = {
-    title: 'Welcome',
+    title: 'Complete!',
   };
+  async setTime() {
+     await AsyncStorage.setItem('@time', String(this.props.navigation.getParam("time")))
+  };
+
   render() {
     return (
       <View>
       <ImageBackground source={pic} style={style.backgroundImage}>
-          <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-            <Text>Welcome!</Text>
-          </View>
-          <View>
-          <Image source ={leaf} style={style.leaf}/>
-          </View>
-          <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-            <Text>Grab a pair of headphones and find a comfortable seat</Text>
-            <Text>Take a deep breath in...</Text>
-            <Text>and exhale fully through your mouth.</Text>
-            <Text>Set the length of your session and listen carefully.</Text>
-            <Text>Tap your screen each time you hear a tone.</Text>
-          </View>
-          <Button
-            onPress={() => {
-                this.props.navigation.navigate('TimeSelect')}
-                }
-            title="Start"/>
+            <View style={style.container}>
+            <Text style={style.textBigger}>Session Complete.</Text>
+            <Text style={style.textGreen} >Great Job!</Text>
+            <Image source ={leaf} style={style.leaf}/>
+            </View>
+            <View style={style.container}>
+            <Text style={style.textBig}>{String(Math.floor(this.props.navigation.getParam("time")/60))}</Text>
+            <Text style={style.textBold}>MINUTES IN TOTAL</Text>
+            </View>
+        <TouchableHighlight style={style.buttonStyle} onPress={() => {this.props.navigation.navigate("Home")}}>
+            <View>
+                <ImageBackground style={style.backgroundImage} source={require('../images/button.png')}>
+                <Text style={style.textBold}>Done</Text>
+                </ImageBackground>
+            </View>
+        </TouchableHighlight>
       </ImageBackground>
       </View>
     );
